@@ -7,7 +7,6 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: ROCR_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/ROCR_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ROCR/ROCR_{{ version }}.tar.gz
@@ -15,6 +14,7 @@ source:
 
 build:
   noarch: generic
+  skip: True  # [r_base == '3.5.1']
   merge_build_host: true  # [win]
   number: 0
   rpaths:
