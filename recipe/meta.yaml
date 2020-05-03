@@ -1,4 +1,4 @@
-{% set version = '1.0-7' %}
+{% set version = "1.0-11" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -7,23 +7,23 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: ROCR_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/ROCR_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ROCR/ROCR_{{ version }}.tar.gz
-  sha256: e7ef710f847e441a48b20fdc781dbc1377f5a060a5ee635234053f7a2a435ec9
+  sha256: 57385a773220a3aaef5b221a68b2d9c2a94794d4f9e9fc3c1eb9521767debb2a
 
 build:
   noarch: generic
-  merge_build_host: True  # [win]
-  number: 1002
+  skip: True  # [r_base == '3.5.1']
+  merge_build_host: true  # [win]
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
 
 requirements:
   build:
-    - {{posix}}zip               # [win]
+    - {{ posix }}zip               # [win]
   host:
     - r-base
     - r-gplots
@@ -38,28 +38,14 @@ test:
 
 about:
   home: http://rocr.bioinf.mpi-sb.mpg.de/
-  license: GPL (>= 2)
-  summary: ROC graphs, sensitivity/specificity curves, lift charts, and precision/recall plots
-    are popular examples of trade-off visualizations for specific pairs of performance
-    measures. ROCR is a flexible tool for creating cutoff-parameterized 2D performance
-    curves by freely combining two from over 25 performance measures (new performance
-    measures can be added using a standard interface). Curves from different cross-validation
-    or bootstrapping runs can be averaged by different methods, and standard deviations,
-    standard errors or box plots can be used to visualize the variability across the
-    runs. The parameterization can be visualized by printing cutoff values at the corresponding
-    curve positions, or by coloring the curve according to cutoff. All components of
-    a performance plot can be quickly adjusted using a flexible parameter dispatching
-    mechanism. Despite its flexibility, ROCR is easy to use, with only three commands
-    and reasonable default values for all optional parameters.
+  license: GPL-2.0-or-later
+  summary: ROC graphs, sensitivity/specificity curves, lift charts, and precision/recall plots are popular examples of trade-off visualizations for specific pairs of performance measures. ROCR is a flexible tool for creating cutoff-parameterized 2D performance curves by freely combining two from over 25 performance measures
+    (new performance measures can be added using a standard interface). Curves from different cross-validation or bootstrapping runs can be averaged by different methods, and standard deviations, standard errors or box plots can be used to visualize the variability across the runs. The parameterization can be visualized
+    by printing cutoff values at the corresponding curve positions, or by coloring the curve according to cutoff. All components of a performance plot can be quickly adjusted using a flexible parameter dispatching mechanism. Despite its flexibility, ROCR is easy to use, with only three commands and reasonable default values
+    for all optional parameters.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
     - conda-forge/r
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
