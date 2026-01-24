@@ -1,4 +1,4 @@
-{% set version = "1.0-11" %}
+{% set version = "1.0-12" %}
 {% set posix = 'm2-' if win else '' %}
 
 package:
@@ -9,11 +9,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/ROCR_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/ROCR/ROCR_{{ version }}.tar.gz
-  sha256: 57385a773220a3aaef5b221a68b2d9c2a94794d4f9e9fc3c1eb9521767debb2a
+  sha256: 21903bd977e2cf6382f016bbef3d14b5a77305b9d0dc2041b0f26a76938c95fb
 
 build:
-  skip: True  # [r_base == '3.5.1']
-  number: 5
+  skip: true  # [r_base == '3.5.1']
+  number: 0
   rpaths:
     - lib/R/lib/
     - lib/
